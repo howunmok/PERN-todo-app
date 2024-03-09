@@ -9,6 +9,7 @@ body {
 
 .app {
   background-color: rgb(255, 255, 255);
+  /* box shadow: (color + opacity) x-axis y-axis blur */
   box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px, rgba(0, 0, 0, 0.08) 0 0 0 1px;
   border-radius: 10px;
   padding: 10px;
@@ -33,4 +34,7 @@ body {
 
 .list-header {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: rgba(0, 0, 0, 0.05) 1px solid;
 }

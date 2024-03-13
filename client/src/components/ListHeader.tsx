@@ -1,4 +1,6 @@
-import React from "react"
+// import React from "react"
+
+import { Modal } from "./Modal"
 
 interface ListHeaderProps {
   listName: string
@@ -17,6 +19,7 @@ export const ListHeader = ({ listName }: ListHeaderProps) => {
           SIGN OUT
         </button>
       </div>
+      <Modal />
     </div>
   )
 }

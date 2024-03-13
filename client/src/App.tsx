@@ -4,6 +4,8 @@ import { ListItem } from "./components/ListItem"
 
 interface Task {
   date: string
+  id: string
+  title: string
 }
 
 function App() {

@@ -6,6 +6,8 @@ interface Task {
   date: string
   id: string
   title: string
+  user_email: string
+  progress: number
 }
 
 function App() {

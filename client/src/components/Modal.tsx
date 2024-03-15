@@ -1,9 +1,52 @@
-import React from "react"
+import React, { useState } from "react"
 
-export const Modal = () => {
-  const mode = "edit"
-  const handleChange = () => {
+interface Task {
+  user_email: string
+  title: string
+  progress: number
+}
+
+interface ModalProps {
+  mode: string
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>
+  task?: Task
+}
+
+export const Modal: React.FC<ModalProps> = ({ mode, setShowModal, task }) => {
+  // const mode = "create"
+  const editMode = mode === "edit" ? true : false
+  const [data, setData] = useState({
+    // testing with dummy email
+    user_email: editMode ? task?.user_email : "bennymok@test.com",
+    // user_email: editMode ? task?.user_email : null,
+    title: editMode ? task?.title : null,
+    progress: editMode ? task?.progress : 50,
+    data: editMode ? "" : new Date(),
+  })
+
+  const postData = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/todos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+      console.log(response)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("changing")
+    const { name, value } = e.target
+
+    setData((data) => ({
+      ...data,
+      [name]: value,
+    }))
+
+    console.log(data)
   }
 
   return (
@@ -11,7 +54,7 @@ export const Modal = () => {
       <div className="modal">
         <div className="form-title-container">
           <h3>Let's {mode} your task</h3>
-          <button>X</button>
+          <button onClick={() => setShowModal(false)}>X</button>
         </div>
         <form>
           <input
@@ -19,7 +62,7 @@ export const Modal = () => {
             maxLength={30}
             placeholder="Your task goes here"
             name="title"
-            value={""}
+            value={data.title || ""}
             onChange={handleChange}
           />
           <br />
@@ -31,10 +74,17 @@ export const Modal = () => {
             min="0"
             max="100"
             name="progress"
-            value={""}
+            value={data.progress}
             onChange={handleChange}
           />
-          <input className={mode} type="submit" />
+          <input
+            className={mode}
+            type="submit"
+            // onClick={editMode ? "" : postData}
+            onClick={() => {
+              if (!editMode) postData()
+            }}
+          />
         </form>
       </div>
     </div>

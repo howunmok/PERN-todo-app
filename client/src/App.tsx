@@ -3,11 +3,17 @@ import { ListHeader } from "./components/ListHeader"
 import { ListItem } from "./components/ListItem"
 
 interface Task {
-  date: string
+  date: Date
   id: string
   title: string
   user_email: string
   progress: number
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface ListHeaderProps {
+  listName: string
+  getData: () => Promise<void>
 }
 
 function App() {
@@ -38,9 +44,9 @@ function App() {
 
   return (
     <div className="app">
-      <ListHeader listName={"🏖️ Holiday tick list"} />
+      <ListHeader listName={"🏖️ Holiday tick list"} getData={getData} />
       {sortedTasks?.map((task) => (
-        <ListItem key={task.id} task={task} />
+        <ListItem key={task.id} task={task} getData={getData} />
       ))}
     </div>
   )

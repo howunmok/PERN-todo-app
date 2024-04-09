@@ -5,9 +5,10 @@ import { Modal } from "./Modal"
 
 interface ListHeaderProps {
   listName: string
+  getData: () => Promise<void>
 }
 
-export const ListHeader = ({ listName }: ListHeaderProps) => {
+export const ListHeader = ({ listName, getData }: ListHeaderProps) => {
   const [showModal, setShowModal] = useState(false)
   const signOut = () => {
     console.log("signout")
@@ -23,7 +24,9 @@ export const ListHeader = ({ listName }: ListHeaderProps) => {
           SIGN OUT
         </button>
       </div>
-      {showModal && <Modal mode={"create"} setShowModal={setShowModal} />}
+      {showModal && (
+        <Modal mode={"create"} setShowModal={setShowModal} getData={getData} />
+      )}
     </div>
   )
 }

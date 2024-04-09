@@ -1,7 +1,5 @@
-import React from 'react'
+// import React from "react"
 
 export const ProgressBar = () => {
-  return (
-    <div>ProgressBar</div>
-  )
+  return <div></div>
 }

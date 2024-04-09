@@ -31,10 +31,11 @@ app.post("/todos", async (req, res) => {
   console.log(user_email, title, progress, date)
   const id = uuidv4()
   try {
-    await pool.query(
+    const newToDo = await pool.query(
       `INSERT INTO todos(id, user_email, title, progress, date) VALUES($1, $2, $3, $4, $5)`,
       [id, user_email, title, progress, date]
     )
+    res.json(newToDo)
   } catch (err) {
     console.error(err)
   }
